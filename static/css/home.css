@@ -1,0 +1,303 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    color: white;
+}
+
+body {
+    background-image: linear-gradient(45deg, #252B48, #383E6E, #252B48);
+}
+
+.navbar {
+    background-color: #252B48;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    width: 100%;
+}
+
+.pagename p {
+    color: white;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.navlinks {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 3rem;
+}
+
+a {
+    font-weight: 600;
+    border: 0;
+    outline: 0;
+    background-image: linear-gradient(45deg, #bb61c7, #8457d3);
+    border-radius: 7px;
+    color: white;
+    padding: 4px 10px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+a:hover ,a:active{
+    background-image: linear-gradient(45deg, #a557d3, #C761C2);
+}
+
+.hero-section {
+    position: relative;
+    height: 80vh;
+    background-image: linear-gradient(#252B48, #383E6E);
+    margin: 1rem auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0;
+    width: 90%;
+    border-radius: 30px;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    padding-left: 3rem;
+    padding-top: 3rem;
+    
+}
+
+.captionbox{
+    position: relative;
+    background-image: linear-gradient(rgb(0, 213, 255),rgb(11, 135, 176));
+    border-radius: 30px;
+    left: 2rem;
+    top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem ;
+    margin: auto;
+    width: 80%;
+    line-height: 25px;
+    
+
+}
+.hero-section .caption {
+    font-size: 1.25rem;
+    font-weight: 400;
+    /* padding-left: 3rem; */
+    color: #ddd;
+    /* margin-top: 0.5rem; */
+}
+
+.hero-section img {
+    height: 80vh;
+    width: 400px;
+    padding-right: 3rem;
+}
+
+.hero-section .quickGeneral{
+    border: 0;
+    outline: 0;
+    background-image: linear-gradient(45deg, #bb61c7, #8457d3);
+    color: white;
+    text-decoration: none;
+    width: 200px;
+    position: relative;
+  
+    z-index: 20;
+    margin: auto;
+    top:4rem;
+    left: 1rem;
+    height: 50px;
+    /* text-align: center; */
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 40px;
+    cursor: pointer;
+    padding: 10px;
+}
+.hamburger {
+    display: none;
+}
+
+
+.catBox {
+    padding: 2rem;
+    background-image: linear-gradient(45deg,#252B48, #383E6E);
+    border-radius: 10px;
+}
+
+.CategoryNames h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* New container for the category grid */
+.categorylist {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 2rem;
+}
+
+/* Styling for individual category boxes */
+.category {
+    background-color: #383E6E;
+    padding: 1.5rem;
+    text-align: center;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for category boxes */
+.category:hover {
+    background-color: #C761C2;
+    cursor: pointer;
+}
+
+
+
+@media (min-width: 750px)and (max-width: 860px){
+    .captionbox{
+        padding: 10px ;
+        text-align: justify;
+    }
+    .hero-section .quickGeneral{
+        position: relative;
+        top:3rem;
+        left: 1rem;
+        height: 50px;
+        /* text-align: center; */
+        font-size: 18px;
+        font-weight: 700;
+        border-radius: 40px;
+        cursor: pointer;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 750px) {
+    /* Hide nav links initially */
+    .navlinks {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        /* align-items: center; */
+        /* background-image:linear-gradient(45deg,#535b93,#252A51); */
+        background-color: #252A51;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        padding: 1rem 1rem;
+        z-index :1000;
+    }
+    .navlinks a{
+        background-image:linear-gradient(45deg,#535b93,#535b93);
+    }
+    
+    /* Hamburger icon */
+    .hamburger {
+        display: block;
+        cursor: pointer;
+        font-size: 30px;
+        color: white;
+        /* z-index :1000; */
+    }
+
+    /* Show links when active */
+    .navlinks.active {
+        display: flex;
+        gap: 1.5rem;
+        z-index :1000;
+    }
+    .hero-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-section h1 {
+        font-size: 2rem;
+        text-align: center;
+        padding-left: 0;
+        padding-top:1rem;
+    }
+    .hero-section p.caption{
+        font-size: 15px;
+        margin-top: 0;
+        padding: 5px;
+    }
+
+    .hero-section img {
+        height: 42vh;
+        width: 200px;
+        padding-right: 0;
+        padding-top: 1.5rem;
+    }
+   
+    .hero-section .quickGeneral{
+        top: 2rem;
+        left:0;
+        height: 40px;
+        padding: 7px;
+        font-size: 16px;
+        text-align: center;
+    }
+    .captionbox{
+        /* position: relative; */
+        background-image: linear-gradient(rgb(0, 213, 255),rgb(11, 135, 176));
+        border-radius: 30px;
+        left: 0;
+        top: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 8px ;
+        margin: auto;
+        margin-top: 1rem;
+        width: 90%;
+        line-height: 20px;
+    }
+    .categorylist {
+        display: grid;
+        grid-template-columns: repeat(3,1fr); 
+        gap: 1rem;
+    }
+}
+
+@media(max-width:400px){
+    .categorylist {
+        display: grid;
+        grid-template-columns: repeat(2,1fr); 
+        gap: 1rem;
+    }
+    .hero-section p.caption{
+        font-size: 15px;
+        margin-top: 0;
+        padding: 4px;
+    }
+
+    .hero-section img {
+        height: 39vh;
+        width: 200px;
+        padding-right: 0;
+        padding-top: 1rem;
+    }
+    .hero-section .quickGeneral{
+        top: 2rem;
+        left:0;
+        height: 40px;
+        padding: 7px;
+        font-size: 16px;
+        text-align: center;
+    }
+}
+

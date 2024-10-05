@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SamQuiz is your go-to quiz app for general knowledge and category quizzes.">
+    <title>SamQuiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="pagename">
+            <p>SamQuiz</p>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+        <div class="navlinks">
+            <div class="navelements"><a href="#">Home</a></div>
+            <div class="navelements"><a href="#">General Quiz</a></div>
+            <div class="navelements"><a href="#categories">Category Quiz</a></div>
+        </div>
+    </div>
+
+    <div class="hero-section">
+        <div>
+            <h1>Welcome to Our Quiz App</h1>
+            <div class ="captionbox">
+                <p class="caption">Test your knowledge and have fun with our interactive quizzes!</p>
+            </div>
+            <div class ="quickGeneral">
+                <a href="#">Try General Quiz</a>
+            </div>
+        </div>
+        <div>
+            <img src="{{ url_for('static', filename='images/question.png') }}" alt="Quiz Image">
+        </div>
+    </div>
+   <div id = "categories" class="catBox">
+    <div class ="CategoryNames"><h2>Choose the category of Questions!</h2></div>
+    <hr>
+    <br>
+    <div class ="categorylist">
+        <div class ="category"><p>Science</p></div>
+    <div class ="category"><p>Science</p></div>
+    <div class ="category"><p>Science</p></div>
+    <div class ="category"><p>Science</p></div>
+    <div class ="category"><p>Science</p></div>
+    <div class ="category"><p>Science</p></div>
+    <div class ="category"><p>Science</p></div>
+    </div>
+
+   </div>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.navlinks');
+            navLinks.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

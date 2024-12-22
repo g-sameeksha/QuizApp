@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Leaderboard{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/leaderboard.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1 style="text-align: center;">Leaderboard</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users.items %}
+            <tr>
+                <td>{{  loop.index }}</td> <!-- Calculate rank based on starting index -->
+                <td>{{ user.username }}</td>
+                <td>{{ user.score }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Pagination controls -->
+    <div style="text-align: center;">
+        {% if users.has_prev %}
+            <a href="{{ url_for('leaderboard', page=users.prev_num) }}">Previous</a>
+        {% endif %}
+        <span>Page {{ users.page }} of {{ users.pages }}</span>
+        {% if users.has_next %}
+            <a href="{{ url_for('leaderboard', page=users.next_num) }}">Next</a>
+        {% endif %}
+    </div>
+{% endblock %}

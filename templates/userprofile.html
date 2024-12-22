@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/userprofile.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class ="profile-name">
+        <h2>Profile: {{user.username}} </h2>
+        
+    </div>
+    <div class="profile-details">
+        <div class="userprofilebox">
+            <img class ="userprofile_image" src="{{ url_for('static', filename='profileImages/' + user.profile_image) }}" alt="Profile Image" class="profile-img">
+        </div>
+        <div class="profile-form">
+            <div class="field">
+                <h2>Your Score: {{ user.score}}</h2>
+                <a  class ="leader_board-btn" href="{{ url_for('leaderboard')}}">Go to Leaderboard</a>
+            </div>
+            <form method="POST" enctype="multipart/form-data"  action="{{ url_for('userprofile') }}">
+                {{ form.hidden_tag() }}
+                <div class="field">
+                    <label>{{ form.username.label(class="label") }}</label>
+                    {{ form.username(class="input-field") }}
+                </div>
+                <div class="field">
+                    <label>{{ form.email.label(class="label")  }}</label>
+                    {{ form.email(class="input-field") }}
+                </div>
+                <div class="field">
+                    <label>{{ form.password.label(class="label")  }}</label>
+                    <div class = "password-container">
+                        {{ form.password(class="password-field", type="password") }}
+                        <input class="password_toggler" type="checkbox" id="togglePassword"> 
+                       
+                    </div>
+                </div>
+               
+                <div class="profile-update">
+                    <button type="submit" style="--clr:green;" class="btn" onclick="confirm('Do you want to make changes?')">Update Profile</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="profile-del">
+        <form method="POST" action="{{ url_for('delete_account') }}">
+            {{ form.hidden_tag() }} 
+            <button type="submit" style="--clr:red;" class="btn" onclick="confirm('Are you sure you want to delete your account?')">Delete Account</button>
+        </form>
+    </div>
+</div>
+
+<script>
+document.getElementById("togglePassword").addEventListener("change", function() {
+    var passwordField = document.querySelector(".password-field");
+    if (this.checked) {
+        passwordField.type = "text";
+    } else {
+        passwordField.type = "password";
+    }
+});
+</script>
+{% endblock %}

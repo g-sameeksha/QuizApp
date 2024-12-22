@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SamQuiz{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.min.js"></script>
+
+    {% block head %}{% endblock %} 
+</head>
+<body>
+    <div class="navbar">
+        <div class="pagename">
+            <p>SamQuiz</p>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+        <div class="navlinks">
+            
+            <div class="navelements"><a class="nav" href="{{ url_for('home') }}">Home</a></div>
+            <div class="navelements"><a class="nav" href="{{ url_for('quiz')}}">General Quiz</a></div>
+            <div class="navelements">
+                {% if request.path == url_for('home') %}
+                     <a class="nav" href="#categories">Category Quiz</a>
+               {% else %}
+                     <a class="nav" href="{{ url_for('home') }}#categories">Category Quiz</a>
+               {% endif %}
+
+            </div>
+            {% if not current_user.is_authenticated %}
+            <div class="navelements"><a class="nav" href="{{ url_for('register') }}">Register</a></div>
+            <div class="navelements"><a class="nav" href="{{ url_for('login') }}">Login</a></div>
+
+            {% else %}
+            <div class="navelements"><a class="nav" href="{{ url_for('logout') }}">Logout</a></div>
+            
+            
+
+            {% endif %}
+
+            {% if current_user.is_authenticated %}
+            <div class="navelements"></div>
+           <a href="{{ url_for('userprofile')}}"> 
+                {{ current_user.score }}
+                <img class="profile_image"  width="30px" height ="30px" src ="{{ url_for('static', filename='profileImages/'+current_user.profile_image)}}">
+         </a>
+        </div>  
+    {% endif %}
+           
+        </div>
+    </div>
+    
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <div class ="footer">
+        <p>@Copyroght Samquiz .All rights reserved</p>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

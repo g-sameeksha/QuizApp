@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Quiz App</h1>
+        <hr>
+
+        {% for question in questions %}
+        <div class="quiz-question" id="question-{{ loop.index0 }}" style="display: none;">
+            <h2>{{ loop.index }}. {{ question.question|safe }}</h2>
+
+            <!-- Display options -->
+            <ul>
+                {% for answer in question.shuffled_answers %}
+                <li>
+                    <button class="option_btn" onclick="checkAnswer(this, '{{ question.correct_answer|safe }}')">{{ answer }}</button>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <!-- Navigation buttons within the question div -->
+            <div class="previewbox">
+                <button class="nextbtn" onclick="nextQuestion()">Next</button>
+                <button class="Quitbtn" onclick="quitQuiz()">Quit</button>
+            </div>
+            <div class="index">{{ loop.index }} of {{ questions|length }} Questions</div>
+            <hr>
+        </div>
+        {% endfor %}
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <script>
+        let currentQuestionIndex = 0;
+        let totalQuestions = {{ questions|length }};
+        let score = 0; // Variable to track score during the quiz
+        const isAuthenticated = {{ current_user.is_authenticated|tojson }};
+
+
+        // Show the first question initially
+        document.getElementById(`question-${currentQuestionIndex}`).style.display = "block";
+
+        
+
+        // Function to check if the selected answer is correct
+        function checkAnswer(button, correctAnswer) {
+            let selectedAnswer = button.innerText;
+
+            // Disable all buttons for this question
+            let buttons = document.querySelectorAll(`#question-${currentQuestionIndex} .option_btn`);
+            buttons.forEach(btn => btn.disabled = true);
+
+            // Highlight the correct or incorrect choice
+            if (selectedAnswer === correctAnswer) {
+                button.style.backgroundColor = "green"; // Correct answer
+                button.style.color = "white";
+                score++; // Increase the score
+            } else {
+                button.style.backgroundColor = "red"; // Wrong answer
+                button.style.color = "white";
+
+                buttons.forEach(btn=>{
+                    if (btn.innerText === correctAnswer) {
+                    btn.style.backgroundColor = "green";
+                    btn.style.color = "white";
+                }
+                });
+
+            }
+        }
+
+        // Function to move to the next question
+        function nextQuestion() {
+            // Hide the current question
+            document.getElementById(`question-${currentQuestionIndex}`).style.display = "none";
+
+            currentQuestionIndex++;
+
+            // Check if there are more questions
+            if (currentQuestionIndex < totalQuestions) {
+                // Show the next question
+                document.getElementById(`question-${currentQuestionIndex}`).style.display = "block";
+            } else {
+                // If no more questions, show completion message and display score
+                document.querySelector('.container').innerHTML = `
+                    <h2>You've completed the quiz!</h2>
+                    <p>Your score: ${score} out of ${totalQuestions}</p>
+                `;
+                confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+            });
+
+           
+            
+            if (score >= 8) {
+                document.querySelector('.container').innerHTML += `<p>🎉 Great job! You did awesome! 🎉</p>`;
+                
+            } else if (score >= 5) {
+                document.querySelector('.container').innerHTML += `<p>👏 Good effort! Try again to score even higher!</p>`;
+            } else {
+                document.querySelector('.container').innerHTML += `<p>Don't give up! Keep practicing!</p>`;
+            }
+
+            if(!isAuthenticated){
+                document.querySelector('.container').innerHTML += `
+        <p >To compete with others, <a class="register" href="{{url_for('register')}}">register now</a>!</p>
+    `;
+            }
+                        
+                // Update the user's score in the backend after quiz completion
+                updateUserScore(score);
+            }
+        }
+
+        // Function to update the user's score in the backend
+        function updateUserScore(newScore) {
+            
+            if (isAuthenticated) {
+                fetch("{{ url_for('update_score') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({ score: newScore })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.text().then(text => {
+                            console.error('Error response:', text);
+                            throw new Error('Network response was not ok: ' + text);
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Score updated successfully:", data.new_score);
+                })
+                .catch(error => {
+                    console.error("There was a problem with the fetch operation:", error);
+                });
+            } else {
+                console.warn("User is not authenticated. Score update skipped.");
+            }
+        }
+
+        // Function to quit the quiz
+        function quitQuiz() {
+            if (confirm("Are you sure you want to quit the quiz?")) {
+                window.location.href = "{{ url_for('home') }}";
+            }
+        }
+    </script>
+{% endblock %}

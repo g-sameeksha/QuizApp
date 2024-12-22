@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Register - SamQuiz{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}  <!-- CSRF protection -->
+        
+
+        <div class="form-group">
+            <div class="label"><h4>{{ form.email.label }}</h4></div>
+            <div class="field">{{ form.email(size=32) }}</div>  
+            {% for error in form.email.errors %}
+                <span class="error">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <div class="label">{{ form.username.label }}</div>
+            <div class="field">{{ form.username(size=32) }}</div> 
+            {% for error in form.username.errors %}
+                <span class="error">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <div class="label">{{ form.password.label }}</div>
+            <div class="field">{{ form.password(size=32) }}</div>  
+            {% for error in form.password.errors %}
+                <span class="error">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <div class="label">{{ form.confirm_password.label }}</div>
+            <div class="field">{{ form.confirm_password(size=32) }}</div>  
+            {% for error in form.confirm_password.errors %}
+                <span class="error">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <div class="label">{{ form.profile_image.label }}</div>
+            <div class="field">{{ form.profile_image() }}</div> 
+            {% for error in form.profile_image.errors %}
+                <span class="error">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <div class="field">{{ form.submit() }}</div> 
+
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+        <div class="form-group">
+            <div class="field"><p>Already have Account? <a href="{{url_for('login')}}">Login</a></p></div>  
+
+        </div>
+
+    </form>
+</div>
+{% endblock %}

@@ -9,12 +9,16 @@
 body {
     background-image: linear-gradient(45deg, #252B48, #383E6E, #252B48);
 }
+a{
+    text-decoration: none;
+}
 
 .navbar {
     background-color: #252B48;
     height: 60px;
     display: flex;
     justify-content: space-between;
+    gap: 4rem;
     align-items: center;
     padding: 0 1rem;
     width: 100%;
@@ -33,7 +37,7 @@ body {
     gap: 3rem;
 }
 
-a {
+.nav , .general  {
     font-weight: 600;
     border: 0;
     outline: 0;
@@ -46,7 +50,7 @@ a {
     transition: background-color 0.3s ease;
 }
 
-a:hover ,a:active{
+.nav:hover ,.nav:active ,.general:hover,.general:active{
     background-image: linear-gradient(45deg, #a557d3, #C761C2);
 }
 
@@ -71,6 +75,12 @@ a:hover ,a:active{
     
 }
 
+.hero-section h5{
+    padding-left: 3rem;
+    font-size: 1rem;
+    margin-top: 10px;
+    color: rgb(185, 134, 204)
+}
 .captionbox{
     position: relative;
     background-image: linear-gradient(rgb(0, 213, 255),rgb(11, 135, 176));
@@ -139,29 +149,36 @@ a:hover ,a:active{
     margin-bottom: 1.5rem;
 }
 
-/* New container for the category grid */
+
 .categorylist {
     display: grid;
     grid-template-columns: repeat(4,1fr);
     gap: 2rem;
 }
 
-/* Styling for individual category boxes */
-.category {
-    background-color: #383E6E;
+
+.categoryname{
+  
+    display: block;
+    width: 100%;
     padding: 1.5rem;
+    margin: 10px 0;
     text-align: center;
     border-radius: 10px;
-    color: white;
+    background-color: #383E6E;
+    font-size: 1rem;
     font-weight: 600;
+    cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-/* Hover effect for category boxes */
-.category:hover {
+.categoryname:hover {
     background-color: #C761C2;
     cursor: pointer;
 }
+
+
+
 
 
 
@@ -182,16 +199,29 @@ a:hover ,a:active{
         cursor: pointer;
         padding: 10px;
     }
+    .nav{
+        font-size: 14px;
+        padding: 0.4rem;
+    }
 }
 
+.profile_image{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+
+
+
 @media (max-width: 750px) {
-    /* Hide nav links initially */
+   
     .navlinks {
         display: none;
         flex-direction: column;
         justify-content: center;
-        /* align-items: center; */
-        /* background-image:linear-gradient(45deg,#535b93,#252A51); */
+       
         background-color: #252A51;
         position: absolute;
         top: 60px;
@@ -213,7 +243,7 @@ a:hover ,a:active{
         /* z-index :1000; */
     }
 
-    /* Show links when active */
+    
     .navlinks.active {
         display: flex;
         gap: 1.5rem;
@@ -229,6 +259,11 @@ a:hover ,a:active{
         text-align: center;
         padding-left: 0;
         padding-top:1rem;
+    }
+    .hero-section h5{
+        text-align: center;
+        padding-left: 0;
+        
     }
     .hero-section p.caption{
         font-size: 15px;
@@ -252,7 +287,7 @@ a:hover ,a:active{
         text-align: center;
     }
     .captionbox{
-        /* position: relative; */
+     
         background-image: linear-gradient(rgb(0, 213, 255),rgb(11, 135, 176));
         border-radius: 30px;
         left: 0;
@@ -269,9 +304,17 @@ a:hover ,a:active{
     .categorylist {
         display: grid;
         grid-template-columns: repeat(3,1fr); 
-        gap: 1rem;
+        gap: 0.75rem;
+    }
+    .categoryname{
+        padding: 1rem;
     }
 }
+
+
+
+
+
 
 @media(max-width:400px){
     .categorylist {
@@ -301,3 +344,57 @@ a:hover ,a:active{
     }
 }
 
+
+
+
+.flash-messages {
+    margin: 20px 0;
+}
+
+.alert {
+    padding: 10px;
+   
+    margin-bottom: 15px;
+}
+
+.alert-success {
+    font-weight: 600;
+    color: green;
+    background: transparent;
+}
+
+.alert-danger {
+    font-weight: 600;
+    color: #e9606b;
+    background: transparent;
+    
+    
+}
+
+.leaderboard-btn{
+    position: relative;
+    background-image: linear-gradient(#252B48, #383E6E);
+    margin: 1rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    width: 90%;
+    border-radius: 30px;
+    padding: 2rem;
+    margin-bottom: 5rem;
+}
+
+
+.footer{
+    position: fixed;
+    bottom: 0;
+    height:40px;
+    width: 100%;
+    background-color: #1b2244;
+    text-align: center;
+    margin-top: 3rem;
+}
+.footer p{
+    padding: 9px;
+}
